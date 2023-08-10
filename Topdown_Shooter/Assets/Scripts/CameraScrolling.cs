@@ -77,8 +77,7 @@ public class CameraScrolling : MonoBehaviour
         }
         else
         {
-            float XOffset = cameraWidth; 
-            // Horizontal
+            float XOffset = cameraWidth * 0.75f; 
             if (cameraWidth < TilemapWidth)
             {
                 // Enabled: Bounds of camera
@@ -92,8 +91,8 @@ public class CameraScrolling : MonoBehaviour
                 cameraMinX = CameraStartPositionX;
                 cameraMaxX = CameraStartPositionX;
             }
-            float YOffset = cameraHeight;
-            // Vertical
+
+            float YOffset = cameraHeight * 0.75f;
             if (cameraHeight < TilemapHeight)
             {
                 // Bounds of camera
