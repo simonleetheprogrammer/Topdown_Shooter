@@ -8,6 +8,8 @@ using UnityEngine.Tilemaps;
 /// Camera follows player around while not veering offscreen.
 /// This code is strictly coupled with the sceneTilemap.
 /// 
+/// BUG: any change in screensize will be uhh bad.
+/// BUG: I created the game based off of MY resolution. So yeah... There'll be consequences
 /// </summary>
 public class CameraScrolling : MonoBehaviour
 {
