@@ -24,9 +24,10 @@ public class CameraScrolling : MonoBehaviour
 
     // Max and min bounds of the camera
     private float cameraMinX;
-    private float cameraMinY;
     private float cameraMaxX;
+    private float cameraMinY;
     private float cameraMaxY;
+
     /// <summary>
     /// Gets map and camera dimensions
     /// Disables if there's no player, tilemap, or if the map too small. 
@@ -54,56 +55,57 @@ public class CameraScrolling : MonoBehaviour
             minSceneTilemapBounds = sceneTilemap.CellToWorld(minCell);
             maxSceneTilemapBounds = sceneTilemap.CellToWorld(maxCell);
 
-            toggleCameraHorizonalVerticalMovements();
+            ToggleCameraHorizonalVerticalMovements();
         }
     }
     /// <summary>
     /// Disable horizontal and/or vertical scrolling if map too small.
     /// </summary>
-    private void toggleCameraHorizonalVerticalMovements()
+    private void ToggleCameraHorizonalVerticalMovements()
     {
         //print($"MinWorld X: {minWorld.x} MaxWorld X: {maxWorld.x}");
         //print($"MinWorld Y: {minWorld.y} MaxWorld Y: {maxWorld.y}");
         //print($"CamWidth: {cameraWidth} CamHeight: {cameraHeight}");
 
-        float tilemapWidth = Mathf.Abs(minSceneTilemapBounds.x - maxSceneTilemapBounds.x) / 2;
-        float tilemapHeight = Mathf.Abs(minSceneTilemapBounds.y - maxSceneTilemapBounds.y) / 2;
+        float TilemapWidth = Mathf.Abs(minSceneTilemapBounds.x - maxSceneTilemapBounds.x) / 2;
+        float TilemapHeight = Mathf.Abs(minSceneTilemapBounds.y - maxSceneTilemapBounds.y) / 2;
 
-        if (cameraWidth >= tilemapWidth && cameraHeight >= tilemapHeight)
+        if (cameraWidth >= TilemapWidth && cameraHeight >= TilemapHeight)
         {
             print("CAMERASCROLL: map too small, disabled");
             enabled = false;
         }
         else
         {
+            float XOffset = cameraWidth; 
             // Horizontal
-            if (cameraWidth < tilemapWidth)
+            if (cameraWidth < TilemapWidth)
             {
                 // Enabled: Bounds of camera
-                cameraMinX = minSceneTilemapBounds.x + cameraWidth;
-                cameraMaxX = maxSceneTilemapBounds.x + cameraWidth;
+                cameraMinX = minSceneTilemapBounds.x + XOffset;
+                cameraMaxX = maxSceneTilemapBounds.x - XOffset;
             }
             else
             {
                 print("CAMERASCROLL: world X too small. X scroll disabled");
-                float cameraStartPositionX = minSceneTilemapBounds.x + maxSceneTilemapBounds.x;
-                cameraMinX = cameraStartPositionX;
-                cameraMaxX = cameraStartPositionX;
+                float CameraStartPositionX = minSceneTilemapBounds.x + maxSceneTilemapBounds.x;
+                cameraMinX = CameraStartPositionX;
+                cameraMaxX = CameraStartPositionX;
             }
-
+            float YOffset = cameraHeight;
             // Vertical
-            if (cameraHeight < tilemapHeight)
+            if (cameraHeight < TilemapHeight)
             {
                 // Bounds of camera
-                cameraMinY = minSceneTilemapBounds.y + cameraHeight;
-                cameraMaxY = maxSceneTilemapBounds.y + cameraHeight;
+                cameraMinY = minSceneTilemapBounds.y + YOffset;
+                cameraMaxY = maxSceneTilemapBounds.y + YOffset;
             }
             else
             {
                 print("CAMERASCROLL: world Y too small. Y scroll disabled");
-                float cameraStartPositionY = minSceneTilemapBounds.y + maxSceneTilemapBounds.y;
-                cameraMinY = cameraStartPositionY;
-                cameraMaxY = cameraStartPositionY;
+                float CameraStartPositionY = minSceneTilemapBounds.y + maxSceneTilemapBounds.y;
+                cameraMinY = CameraStartPositionY;
+                cameraMaxY = CameraStartPositionY;
             }
         }
     }
