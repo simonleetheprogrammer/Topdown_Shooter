@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 /// Instead of using the more simple Update implementation from PlayerMove, I decided to make use of the Input System's lifecycle.
 /// Started and Canceled to signal when the player started and stopped holding down the shoot buttons.
 /// 
-/// TODO velocity, damage
+/// TODO velocity, damage, Firing Rate
 /// </summary>
 public class PlayerShoot : MonoBehaviour
 {
@@ -28,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         shootAction = playerInput.actions["Shoot"];
 
+        // Does this rename ALL prefabs to PlayerBullet?
         playerBullet = (GameObject)Resources.Load("Prefabs/Bullet1");
         playerBullet.layer = LayerMask.NameToLayer("PlayerBullet");
 
