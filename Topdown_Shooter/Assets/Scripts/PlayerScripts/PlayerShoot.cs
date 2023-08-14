@@ -12,13 +12,19 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerShoot : MonoBehaviour
 {
+    // For mapping input
     private PlayerInput playerInput;
     private InputAction shootAction;
-
+    
     private Rigidbody2D playerRigidBody;
 
     private GameObject playerBullet;
+    
     private bool isShooting = false;
+
+    private float timeBetweenShots = 0.5f;
+    private float lastShotTime;
+
 
 
     private void Awake()
@@ -28,9 +34,9 @@ public class PlayerShoot : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         shootAction = playerInput.actions["Shoot"];
 
-        // Does this rename ALL prefabs to PlayerBullet?
-        playerBullet = (GameObject)Resources.Load("Prefabs/Bullet1");
-        playerBullet.layer = LayerMask.NameToLayer("PlayerBullet");
+        playerBullet = (GameObject)Resources.Load("Prefabs/PlayerBullet1");
+        // This renames ALL prefabs to PlayerBullet. So it's not a good solution.
+        //playerBullet.layer = LayerMask.NameToLayer("EnemyBullet");
 
         shootAction.started += StartedShoot;
         shootAction.canceled += CanceledShoot;
@@ -44,7 +50,8 @@ public class PlayerShoot : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isShooting)
+        float timeSinceLastShot = Time.time - lastShotTime;
+        if (isShooting && timeSinceLastShot >= timeBetweenShots)
         {
             ShootBullet();
         }
@@ -68,5 +75,7 @@ public class PlayerShoot : MonoBehaviour
         GameObject firedBullet = Instantiate(playerBullet, transform.position, transform.rotation);
         Rigidbody2D firedBulletRigidBody2D = firedBullet.GetComponent<Rigidbody2D>();
         firedBulletRigidBody2D.velocity = shootInput;
+
+        lastShotTime = Time.time;
     }
 }
