@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    private float bulletSpeed = 5f;
-
+    public float BulletSpeed { get; set; } = 3f;
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         print("Collided bullet!");

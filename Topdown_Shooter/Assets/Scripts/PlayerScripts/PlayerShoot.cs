@@ -74,7 +74,8 @@ public class PlayerShoot : MonoBehaviour
 
         GameObject firedBullet = Instantiate(playerBullet, transform.position, transform.rotation);
         Rigidbody2D firedBulletRigidBody2D = firedBullet.GetComponent<Rigidbody2D>();
-        firedBulletRigidBody2D.velocity = shootInput;
+        Bullet firedBulletStats = firedBullet.GetComponent<Bullet>();
+        firedBulletRigidBody2D.velocity = shootInput * firedBulletStats.BulletSpeed;
 
         lastShotTime = Time.time;
     }
