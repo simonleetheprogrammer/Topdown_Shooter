@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89259d49bf69de4ebef7cab53a3af8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 3
+  playerSpeed: 5
   playerSmoothTime: 0.1
 --- !u!114 &788709765
 MonoBehaviour:

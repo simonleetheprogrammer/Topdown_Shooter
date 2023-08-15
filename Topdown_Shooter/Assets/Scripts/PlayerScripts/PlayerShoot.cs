@@ -60,7 +60,6 @@ public class PlayerShoot : MonoBehaviour
     private void StartedShoot(InputAction.CallbackContext context)
     {
         isShooting = true;
-        ShootBullet();
     }
     private void CanceledShoot(InputAction.CallbackContext context)
     {
