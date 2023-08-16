@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 /// <summary>
 /// Enemy Object can be damaged and destroyed by bullets
@@ -44,12 +45,41 @@ public class EnemyMethods : MonoBehaviour
         {
             Destroy(collision.gameObject);
             enemyStats.Health -= 1;
-            print($" e.health: { enemyStats.Health}");
+            Flashing(300,300);
+
             if (enemyStats.Health <= 0)
             {
                 Destroy(this.gameObject);
             }
         }
+    }
+    /// <summary>
+    /// This is copied over from playerHealth.
+    /// Repeated code.
+    /// </summary>
+    /// <param name="flashDuration"></param>
+    /// <param name="flashInterval"></param>
+    private async void Flashing(int flashDuration, int flashInterval)
+    {
+        SpriteRenderer playerSprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        Color palePink = new Color(245, 0, 0, 0.2f);
+        Color noColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        bool flashingColor = false;
+
+        for (int i = 0; i < flashDuration; i = i + flashInterval)
+        {
+            if (flashingColor)
+            {
+                playerSprite.color = noColor;
+            }
+            else
+            {
+                playerSprite.color = palePink;
+            }
+            flashingColor = !flashingColor;
+            await Task.Delay(flashInterval);
+        }
+        playerSprite.color = noColor;
     }
 
 }

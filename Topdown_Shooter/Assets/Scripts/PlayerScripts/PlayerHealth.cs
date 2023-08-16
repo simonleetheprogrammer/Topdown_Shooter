@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int MaxHealth { get; set; } = 10;
+    public int MaxHealth { get; set; } = 2;
     public int Health { get; set; }
     private Rigidbody2D playerRigidBody;
 
@@ -35,7 +36,15 @@ public class PlayerHealth : MonoBehaviour
         {
             EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
             Health -= enemyStats.Damage;
-            await MakePlayerInvulnerable();
+            if (Health <= 0)
+            {
+                Destroy(gameObject);
+                SceneManager.LoadScene("GameOver");
+            }
+            else
+            {
+                await MakePlayerInvulnerable();
+            }
         }
     }
     /// <summary>
