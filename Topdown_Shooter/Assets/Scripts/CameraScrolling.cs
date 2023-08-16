@@ -113,7 +113,10 @@ public class CameraScrolling : MonoBehaviour
 
     void Update()
     {
-        CameraFollowPlayer();
+        if (playerTransform!= null)
+        {
+            CameraFollowPlayer();
+        }
     }
     /// <summary>
     /// If player moves out of the bounds of the tilemap, the camera doesn't follow.
