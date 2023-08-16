@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        playerRigidBody= GetComponent<Rigidbody2D>();
+        playerRigidBody = GetComponent<Rigidbody2D>();
         enemyLayer = LayerMask.NameToLayer("Enemy");
         Health = MaxHealth;
     }
@@ -43,19 +44,50 @@ public class PlayerHealth : MonoBehaviour
     /// <returns></returns>
     private async Task MakePlayerInvulnerable()
     {
-        playerInvulnerable= true;
-        print("Player Invulnerable");
-        await Task.Delay(invulnerabilityTime);
+        playerInvulnerable = true;
+        await PlayerFlashing(invulnerabilityTime, 300);
         playerInvulnerable = false;
-        print("Player No Longer Invulnerable");
     }
     /// <summary>
+    /// Flash player pink for some time.
+    /// Used for Iframes.
+    /// </summary>
+    /// <returns></returns>
+    private async Task PlayerFlashing(int flashDuration, int flashInterval)
+    {
+        SpriteRenderer playerSprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        Color palePink = new Color(245, 0, 0, 0.2f);
+        Color noColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        bool flashingColor = false;
+
+        for (int i = 0; i < flashDuration; i = i + flashInterval)
+        {
+            if (flashingColor)
+            {
+                playerSprite.color = noColor;
+            }
+            else
+            {
+                playerSprite.color = palePink;
+            }
+            flashingColor = !flashingColor;
+            await Task.Delay(flashInterval);
+        }
+        playerSprite.color = noColor;
+
+    }
+
+    /// <summary>
+    /// Make red text.
     /// Draw Health to screen
     /// </summary>
     void OnGUI()
     {
+        GUIStyle labelStyle = new GUIStyle();
+        labelStyle.normal.textColor = Color.red;
+
         GUILayout.BeginArea(new Rect(20, 20, 250, 120));
-        GUILayout.Label($"Health {Health}/{MaxHealth}");
+        GUILayout.Label($"Health {Health}/{MaxHealth}", labelStyle);
         GUILayout.EndArea();
     }
 }
