@@ -28,12 +28,12 @@ public class EnemyMethods : MonoBehaviour
     {
         ChasePlayer();
     }
-    
+
     private void ChasePlayer()
     {
         Vector2 enemyToPlayerVector = player.transform.position - transform.position;
         Vector2 directionToPlayer = enemyToPlayerVector.normalized;
-        enemyRigidBody.velocity= directionToPlayer * enemyStats.MovementSpeed;
+        enemyRigidBody.velocity = directionToPlayer * enemyStats.MovementSpeed;
     }
     /// <summary>
     /// Takes damage from bullets.
@@ -45,11 +45,13 @@ public class EnemyMethods : MonoBehaviour
         {
             Destroy(collision.gameObject);
             enemyStats.Health -= 1;
-            Flashing(300,300);
-
             if (enemyStats.Health <= 0)
             {
                 Destroy(this.gameObject);
+            }
+            else
+            {
+                Flashing(300, 300);
             }
         }
     }
