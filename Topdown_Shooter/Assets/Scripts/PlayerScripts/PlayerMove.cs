@@ -19,11 +19,10 @@ public class PlayerMove : MonoBehaviour
     private float playerSpeed = 3f;
     [SerializeField]
     private float playerSmoothTime = 0.1f;
-
+    
     private Vector2 movementInput;
     private Vector2 smoothMovementInput;
     private Vector2 smoothVelocity;
-
     private void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
@@ -35,6 +34,9 @@ public class PlayerMove : MonoBehaviour
     {
         SetPlayerVelocity();
     }
+    /// <summary>
+    /// Smooth movement according to input.
+    /// </summary>
     private void SetPlayerVelocity()
     {
         movementInput = moveAction.ReadValue<Vector2> ();

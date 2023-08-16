@@ -1,27 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Enemy Object can be damaged and destroyed by bullets
+/// 
+/// </summary>
 public class EnemyMethods : MonoBehaviour
 {
-    private Rigidbody2D enemyRigidBody2D;
+    private Rigidbody2D enemyRigidBody;
     private EnemyStats enemyStats;
-    // Start is called before the first frame update
+
+    private GameObject player;
+
     void Awake()
     {
         enemyStats = GetComponent<EnemyStats>();
-        enemyRigidBody2D = GetComponent<Rigidbody2D>();
+        enemyRigidBody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
+    void FixedUpdate()
+    {
+        ChasePlayer();
+    }
+    
+    private void ChasePlayer()
+    {
+        Vector2 enemyToPlayerVector = player.transform.position - transform.position;
+        Vector2 directionToPlayer = enemyToPlayerVector.normalized;
+        enemyRigidBody.velocity= directionToPlayer * enemyStats.MovementSpeed;
+    }
+    /// <summary>
+    /// Takes damage from bullets.
+    /// </summary>
+    /// <param name="collision"></param>
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"Enemy Collided!");
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
             Destroy(collision.gameObject);
