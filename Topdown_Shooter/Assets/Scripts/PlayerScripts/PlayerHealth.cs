@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         playerRigidBody= GetComponent<Rigidbody2D>();
         enemyLayer = LayerMask.NameToLayer("Enemy");
         Health = MaxHealth;
