@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 /// <summary>
 /// Enemy Object can be damaged and destroyed by bullets
@@ -58,6 +59,7 @@ public class EnemyMethods : MonoBehaviour
     /// <summary>
     /// This is copied over from playerHealth.
     /// Repeated code.
+    /// But added in the IsDestroyed()
     /// </summary>
     /// <param name="flashDuration"></param>
     /// <param name="flashInterval"></param>
@@ -70,7 +72,11 @@ public class EnemyMethods : MonoBehaviour
 
         for (int i = 0; i < flashDuration; i = i + flashInterval)
         {
-            if (flashingColor)
+            if (playerSprite.IsDestroyed())
+            {
+                return;
+            }
+            else if (flashingColor)
             {
                 playerSprite.color = noColor;
             }
@@ -81,7 +87,9 @@ public class EnemyMethods : MonoBehaviour
             flashingColor = !flashingColor;
             await Task.Delay(flashInterval);
         }
-        playerSprite.color = noColor;
+        if (!playerSprite.IsDestroyed()){
+            playerSprite.color = noColor;
+        }
     }
 
 }
