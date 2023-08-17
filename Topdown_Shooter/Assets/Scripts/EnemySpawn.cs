@@ -18,7 +18,8 @@ public class EnemySpawn : MonoBehaviour
     private float timeUntilSpawn = 0;
 
     private List<Vector3> spawnPositions = new List<Vector3>();
-    
+    [SerializeField]
+    private LevelManager levelManager;
     /// <summary>
     /// Get the enemy prefab.
     /// Get the positions of the tile spawners.
@@ -64,12 +65,12 @@ public class EnemySpawn : MonoBehaviour
         timeUntilSpawn -= Time.deltaTime;
         if (timeUntilSpawn <= 0)
         {
+            timeUntilSpawn = spawnInterval; 
             int randomIndex = Random.Range(0, spawnPositions.Count);
-            Instantiate(spawns[0], spawnPositions[randomIndex], Quaternion.identity);
-            timeUntilSpawn = spawnInterval;
+            GameObject enemy = Instantiate(spawns[0], spawnPositions[randomIndex], Quaternion.identity);
+            EnemyMethods enemyMethods = enemy.GetComponent<EnemyMethods>();
+            enemyMethods.Manager = levelManager;
         }
-
-
     }
     /// <summary>
     /// Go to Level2
@@ -77,7 +78,7 @@ public class EnemySpawn : MonoBehaviour
     /// <param name="collider"></param>
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player" && levelManager.KillCount >= levelManager.RequiredKills)
         {
             SceneManager.LoadScene("Level2");
         }

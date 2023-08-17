@@ -11,8 +11,9 @@ public class EnemyMethods : MonoBehaviour
 {
     private Rigidbody2D enemyRigidBody;
     private EnemyStats enemyStats;
-
     private GameObject player;
+    [Serialize]
+    public LevelManager Manager { get; set; }
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public class EnemyMethods : MonoBehaviour
             enemyStats.Health -= 1;
             if (enemyStats.Health <= 0)
             {
+                Manager.KillCount++;
                 Destroy(this.gameObject);
             }
             else
