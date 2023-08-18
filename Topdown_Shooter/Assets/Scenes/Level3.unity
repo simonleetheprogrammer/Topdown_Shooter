@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillCount: 0
-  RequiredKills: 1
+  RequiredKills: 10
 --- !u!4 &1231534991
 Transform:
   m_ObjectHideFlags: 0
@@ -455,6 +455,7 @@ MonoBehaviour:
   - {fileID: 6473999082798810477, guid: c6a791b9699255b4ea132816ab528555, type: 3}
   - {fileID: 113261994412876074, guid: 5d3610729136fa84fa1ff3f73464ee6b, type: 3}
   - {fileID: 1838898000288042916, guid: 5a2d55d04834fe34895184996c3e84c1, type: 3}
+  spawnInterval: 2
   hasNextLevel: 0
   levelManager: {fileID: 1231534990}
 --- !u!483693784 &1302550074

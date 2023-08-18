@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillCount: 0
-  RequiredKills: 1
+  RequiredKills: 5
 --- !u!4 &1493137083
 Transform:
   m_ObjectHideFlags: 0
@@ -2944,6 +2944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 6473999082798810477, guid: c6a791b9699255b4ea132816ab528555, type: 3}
+  spawnInterval: 2
   hasNextLevel: 1
   levelManager: {fileID: 1493137082}
 --- !u!19719996 &1667255224

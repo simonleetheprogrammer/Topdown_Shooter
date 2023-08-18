@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int MaxHealth { get; set; } = 2123;
+    public int MaxHealth { get; set; } = 5;
     public int Health { get; set; }
     private Rigidbody2D playerRigidBody;
 

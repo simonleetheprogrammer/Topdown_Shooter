@@ -15,6 +15,7 @@ public class EnemySpawn : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] enemies;
+    [SerializeField]
     private float spawnInterval = 2;
     private float timeUntilSpawn = 0;
     [SerializeField]
