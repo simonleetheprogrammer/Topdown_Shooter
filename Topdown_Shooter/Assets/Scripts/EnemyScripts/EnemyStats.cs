@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public int Health { get; set; } = 2;
-    public int MovementSpeed { get; set; } = 2;
-    public int Damage { get; set; } = 1;
+    public int Health = 2;
+    public float MovementSpeed = 2;
+    public int Damage = 1;
 
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

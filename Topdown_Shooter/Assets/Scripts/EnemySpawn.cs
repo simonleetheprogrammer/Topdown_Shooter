@@ -13,7 +13,7 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class EnemySpawn : MonoBehaviour
 {
-    private GameObject[] enemies = new GameObject[1] { null };
+    private GameObject[] enemies;
     private float spawnInterval = 2;
     private float timeUntilSpawn = 0;
 
@@ -27,14 +27,15 @@ public class EnemySpawn : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        GameObject enemy = Resources.Load<GameObject>("Prefabs/Enemy");
-        enemies[0] = enemy;
+        //GameObject enemy = Resources.Load<GameObject>("Prefabs/Enemy");
+        //enemies[0] = enemy;
+        enemies = EnemiesInLevels.Level1Enemies;
 
         Tilemap spawnTilemap = GetComponent<Tilemap>();
         BoundsInt bounds = spawnTilemap.cellBounds;
         TileBase[] allTiles = spawnTilemap.GetTilesBlock(bounds);
 
-        BoxCollider2D enemyCollider = enemy.GetComponent<BoxCollider2D>();
+        BoxCollider2D enemyCollider = enemies[0].GetComponent<BoxCollider2D>();
         Vector3 offset = new Vector3(enemyCollider.size.x, enemyCollider.size.y, 0);
 
         for (int x = 0; x< bounds.size.x; x++)

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public int KillCount { get; set; } = 0;
-    public int RequiredKills { get; set; } = 1;
+    public int KillCount = 0;
+    public int RequiredKills  = 1;
 }
