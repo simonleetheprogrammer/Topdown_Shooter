@@ -13,7 +13,6 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class CameraScrolling : MonoBehaviour
 {
-    [SerializeField]
     private Transform playerTransform;
     [SerializeField]
     private Tilemap sceneTilemap;
@@ -36,6 +35,7 @@ public class CameraScrolling : MonoBehaviour
     /// </summary>
     void Start()
     {
+        playerTransform = GameObject.FindWithTag("Player").transform;
         if (playerTransform is null || sceneTilemap is null) 
         { 
             enabled = false; 

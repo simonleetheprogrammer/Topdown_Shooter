@@ -13,6 +13,7 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class EnemySpawn : MonoBehaviour
 {
+    [SerializeField]
     private GameObject[] enemies;
     private float spawnInterval = 2;
     private float timeUntilSpawn = 0;
@@ -29,7 +30,7 @@ public class EnemySpawn : MonoBehaviour
     {
         //GameObject enemy = Resources.Load<GameObject>("Prefabs/Enemy");
         //enemies[0] = enemy;
-        enemies = EnemiesInLevels.Level1Enemies;
+        //enemies = EnemiesInLevels.Level1Enemies;
 
         Tilemap spawnTilemap = GetComponent<Tilemap>();
         BoundsInt bounds = spawnTilemap.cellBounds;
