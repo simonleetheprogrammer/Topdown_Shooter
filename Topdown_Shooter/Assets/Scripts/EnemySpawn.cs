@@ -17,6 +17,8 @@ public class EnemySpawn : MonoBehaviour
     private GameObject[] enemies;
     private float spawnInterval = 2;
     private float timeUntilSpawn = 0;
+    [SerializeField]
+    private bool hasNextLevel = true;
 
     private List<Vector3> spawnPositions = new List<Vector3>();
     [SerializeField]
@@ -60,7 +62,16 @@ public class EnemySpawn : MonoBehaviour
         }
         else
         {
-            this.GetComponent<TilemapRenderer>().enabled = false;
+            if (hasNextLevel)
+            {
+                this.GetComponent<TilemapRenderer>().enabled = false;
+            }
+            else
+            {
+                GameObject endTrophy = Resources.Load<GameObject>("Prefabs/EndTrophy");
+                Instantiate(endTrophy);
+                this.enabled = false;
+            }
         }
 
     }
@@ -76,21 +87,24 @@ public class EnemySpawn : MonoBehaviour
         if (timeUntilSpawn <= 0)
         {
             timeUntilSpawn = spawnInterval; 
-            int randomIndex = Random.Range(0, spawnPositions.Count);
-            GameObject enemy = Instantiate(spawns[0], spawnPositions[randomIndex], Quaternion.identity);
+            int randomTileIndex = Random.Range(0, spawnPositions.Count);
+            int randomSpawnIndex = Random.Range(0, enemies.Length);
+            GameObject enemy = Instantiate(spawns[randomSpawnIndex], spawnPositions[randomTileIndex], Quaternion.identity);
             EnemyMethods enemyMethods = enemy.GetComponent<EnemyMethods>();
             enemyMethods.Manager = levelManager;
         }
     }
     /// <summary>
-    /// Go to Level2
+    /// Go to next level
     /// </summary>
     /// <param name="collider"></param>
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player" && levelManager.KillCount >= levelManager.RequiredKills)
+        if (collider.gameObject.tag == "Player" && levelManager.KillCount >= levelManager.RequiredKills && hasNextLevel)
         {
-            SceneManager.LoadScene("Level2");
+            GameObject player = GameObject.FindWithTag("Player");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            player.transform.position = new Vector3(0,0,0);
         }
     }
 }
