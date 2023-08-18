@@ -14,7 +14,7 @@ using UnityEngine.Tilemaps;
 public class EnemySpawn : MonoBehaviour
 {
     private GameObject[] enemies = new GameObject[1] { null };
-    private float spawnInterval = 1;
+    private float spawnInterval = 2;
     private float timeUntilSpawn = 0;
 
     private List<Vector3> spawnPositions = new List<Vector3>();
@@ -52,7 +52,15 @@ public class EnemySpawn : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Spawn(enemies, spawnPositions);
+        if (levelManager.KillCount < levelManager.RequiredKills)
+        {
+            Spawn(enemies, spawnPositions);
+        }
+        else
+        {
+            this.GetComponent<TilemapRenderer>().enabled = false;
+        }
+
     }
     /// <summary>
     /// Creates a spawn every interval in a random spawn position
