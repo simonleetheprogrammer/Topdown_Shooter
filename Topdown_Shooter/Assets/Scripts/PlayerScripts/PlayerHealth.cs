@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     private int invulnerabilityTime = 2000;
-    private bool playerInvulnerable;    // So far this does nothing.
+    private bool playerInvulnerable;  
     private int enemyLayer;
 
     private void Awake()
